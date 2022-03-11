@@ -46,10 +46,9 @@ class SignInActivity : BaseActivity() {
 
                         val br = response.body()!! // 성공시 무조건 본문이 있다. => BasicResponse형태의 변수로 파싱되어 나옴.
 
-
 //                        Retrofit의 Callback은 UITread 안으로 다시 돌아오도록 처리되어있다.
 //                        UI 조작을 위해 runOnUiThread{}작성 필요 x
-                        Toast.makeText(mContext, br.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContext, "${br.data.user.nick_name}님, 환영합니다!", Toast.LENGTH_SHORT).show()
 
                     }
 //                    실패일때는?
