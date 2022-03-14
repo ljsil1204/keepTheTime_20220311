@@ -3,6 +3,8 @@ package com.example.keepthetime_20220311
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.keepthetime_20220311.adapters.SearchedUserRecyclerAdapter
 import com.example.keepthetime_20220311.databinding.ActivitySearchUserBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
 import com.example.keepthetime_20220311.datas.UserData
@@ -16,6 +18,8 @@ class SearchUserActivity : BaseActivity() {
     lateinit var binding : ActivitySearchUserBinding
 
     val mSerarchUserList = ArrayList<UserData>()
+
+    lateinit var mAdapter : SearchedUserRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +43,16 @@ class SearchUserActivity : BaseActivity() {
                     response: Response<BasicResponse>
                 ) {
 
+//                    기존의 검색 목록은 삭제해야, 누적으로 추가되는것을 막을 수 있다.
+                    mSerarchUserList.clear()
+
                     if (response.isSuccessful){
 
                         val br = response.body()!!
 
                         mSerarchUserList.addAll(br.data.users)
+
+                        mAdapter.notifyDataSetChanged()
 
                     }
 
@@ -60,6 +69,12 @@ class SearchUserActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        mAdapter = SearchedUserRecyclerAdapter(mContext, mSerarchUserList)
+        binding.userListRecyclerView.adapter = mAdapter
+//        리싸이클러뷰는 , 어떤 모양으로 목록을 표현할지도 설정해야 화면에 데이터가 나옴.
+
+        binding.userListRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
     }
 }
