@@ -37,4 +37,11 @@ interface APIList {
         @Query("value") value : String,
     ) : Call<BasicResponse>
 
+
+    @GET("/user/friend")
+    fun getrequestFriendList(
+        @Header("X-Http-Token") token : String,
+        @Query("type") type : String, // all my, requested  세 문구 외에는 넣지 말자.
+    ) : Call<BasicResponse>
+
 }
