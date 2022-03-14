@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.keepthetime_20220311.adapters.MyFriendAdapter
 import com.example.keepthetime_20220311.databinding.ActivityManageMyFriendsBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
@@ -41,8 +43,10 @@ class ManageMyFriendsActivity : BaseActivity() {
     override fun setValues() {
         getMyFriendListFromServer()
 
-        mAdapter = MyFriendAdapter(mContext, R.layout.my_friend_list_item, mFriendList)
+        mAdapter = MyFriendAdapter(mContext, mFriendList)
         binding.myFrindsListView.adapter = mAdapter
+
+        binding.myFrindsListView.layoutManager = LinearLayoutManager(mContext)
 
     }
 
