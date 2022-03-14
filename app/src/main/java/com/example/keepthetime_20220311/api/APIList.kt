@@ -31,4 +31,10 @@ interface APIList {
     ) : Call<BasicResponse>
 
 
+    @GET("/user/check")
+    fun getRequestDuplicatedCheck(
+        @Query("type") type : String,
+        @Query("value") value : String,
+    ) : Call<BasicResponse>
+
 }
