@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.keepthetime_20220311.databinding.ActivityEditAppointmentBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.Marker
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,6 +22,11 @@ class EditAppointmentActivity : BaseActivity() {
 
 //    약속 시간 일 /시를 저장해줄 Calendor. (월 값이 0~11로 움직이게 맞춰져있다.)
     val mSelectedAppointmentDateTime = Calendar.getInstance() // 기본값 : 현재 일시
+
+//    약속 장소 관련 멤버변수.
+    var marker : Marker? = null // 지도에 표시될 하나의 마커. 처음에는 찍지 않은 상태.
+
+    var mSelectedLatLng : LatLng? = null // 약속 장소 위/경도도 처음에는 설정하지 않은 상태.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +116,26 @@ class EditAppointmentActivity : BaseActivity() {
             val cameraUpdate = CameraUpdate.scrollTo(coord)
 
             naverMap.moveCamera(cameraUpdate)
+
+//            첫 마커 좌표 -> 학원 위치
+
+//            val marker = Marker() =>  멤버변수로 하나의 마커만 만들어서 관리하자.
+            marker = Marker()
+            marker!!.position = coord
+            marker!!.map = naverMap
+
+//            지도 클릭 이벤트
+            naverMap.setOnMapClickListener { pointF, latLng ->
+
+//                Log.d("클릭된 위/경도", "위도 :  ${latLng.latitude}, 경도 : ${latLng.longitude}")
+
+//                마커를 새로 추가
+                marker!!.position = latLng
+                marker!!.map = naverMap
+
+
+            }
+
 
         }
 
