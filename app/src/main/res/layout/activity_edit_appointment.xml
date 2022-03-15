@@ -16,6 +16,7 @@
             android:text="약속 제목"/>
 
         <EditText
+            android:id="@+id/edtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="어떤 약속인지 적어주세요."
