@@ -26,9 +26,7 @@ interface APIList {
     ) : Call<BasicResponse>
 
     @GET("/user")
-    fun getRequestMyInfo(
-        @Header("X-Http-Token") token : String,
-    ) : Call<BasicResponse>
+    fun getRequestMyInfo() : Call<BasicResponse>
 
 
     @GET("/user/check")
@@ -40,13 +38,11 @@ interface APIList {
 
     @GET("/user/friend")
     fun getrequestFriendList(
-        @Header("X-Http-Token") token : String,
         @Query("type") type : String, // all my, requested  세 문구 외에는 넣지 말자.
     ) : Call<BasicResponse>
 
     @GET("/search/user")
     fun getRequestSearchUser(
-        @Header("X-Http-Token") token : String,
         @Query("nickname") nickname : String,
     ) : Call<BasicResponse>
 
