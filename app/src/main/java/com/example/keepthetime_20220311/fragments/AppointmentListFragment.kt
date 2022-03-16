@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.keepthetime_20220311.EditAppointmentActivity
 import com.example.keepthetime_20220311.R
+import com.example.keepthetime_20220311.adapters.AppointmentListRecyclerAdapter
 import com.example.keepthetime_20220311.databinding.FragmentAppointmentListBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
+import com.example.keepthetime_20220311.datas.UserData
 import com.example.keepthetime_20220311.utils.ContextUtil
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +22,10 @@ import retrofit2.Response
 class AppointmentListFragment : BaseFragment() {
 
     lateinit var binding : FragmentAppointmentListBinding
+
+    val mAppintmentList = ArrayList<UserData>()
+
+    lateinit var mAdapter : AppointmentListRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,5 +56,35 @@ class AppointmentListFragment : BaseFragment() {
 
     override fun setValues() {
 
+        mAdapter = AppointmentListRecyclerAdapter(mContext, mAppintmentList)
+        binding.appointmentRecyclerView.adapter = mAdapter
+        binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
+
+        getAppointmentListFromServer()
+
     }
+
+    fun getAppointmentListFromServer() {
+
+        apiList.getRequestAppointmentList().enqueue( object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                val br = response.body()!!
+
+                mAppintmentList.clear()
+
+                mAppintmentList.addAll(br.data.appointments)
+
+                mAdapter.notifyDataSetChanged()
+
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+        })
+
+    }
+
 }
