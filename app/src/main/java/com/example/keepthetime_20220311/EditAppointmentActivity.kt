@@ -15,6 +15,10 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
+import com.odsay.odsayandroidsdk.API
+import com.odsay.odsayandroidsdk.ODsayData
+import com.odsay.odsayandroidsdk.ODsayService
+import com.odsay.odsayandroidsdk.OnResultCallbackListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -239,7 +243,43 @@ class EditAppointmentActivity : BaseActivity() {
                 mSelectedLatLng = latLng
 
 
-//                coord ~ 선택한 latLng 까지 직선을 그려보자. (PathOverlay 기능 활용)
+//                coord ~ 선택한 latLng 까지 대중교통 경로를 그려보자. (PathOverlay 기능 활용) + ODsay 라이브러리 활용
+
+                val myODsayService = ODsayService.init(mContext, "gw9m7KtTSb97PJwg3C/jQx+OKMjdKmugQKqgeBp44Vk")
+
+                myODsayService.requestSearchPubTransPath(
+                    coord.longitude.toString(),
+                    coord.latitude.toString(),
+                    latLng.longitude.toString(),
+                    latLng.latitude.toString(),
+                    null,
+                    null,
+                    null,
+                    object : OnResultCallbackListener{
+                        override fun onSuccess(p0: ODsayData?, p1: API?) {
+
+                            val jsonObj = p0!!.json!!
+
+                            Log.d("길찾기응답", jsonObj.toString())
+
+                            val resultObj = jsonObj.getJSONObject("result")
+
+                            Log.d("result", resultObj.toString())
+
+                            val pathArr = resultObj.getJSONObject("path") // 여러 추천 경로 중 첫번째 만 사용해보자.
+
+                            val firstPathObj = pathArr.getJSONObject(0)
+                            Log.d("첫번째 경로",firstPathObj.toString())
+
+                        }
+
+                        override fun onError(p0: Int, p1: String?, p2: API?) {
+
+                        }
+
+                    }
+                )
+
                 if (path == null) {
                     path = PathOverlay()
                 }
