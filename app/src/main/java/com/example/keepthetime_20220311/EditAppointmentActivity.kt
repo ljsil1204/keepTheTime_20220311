@@ -13,6 +13,7 @@ import com.example.keepthetime_20220311.databinding.ActivityEditAppointmentBindi
 import com.example.keepthetime_20220311.datas.BasicResponse
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.Align
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
@@ -350,6 +351,13 @@ class EditAppointmentActivity : BaseActivity() {
 
                                 return@setOnClickListener true
                             }
+
+
+//                            연습 문제 - 카메라를 latLng (클릭한 위치가)가 가운데로 오도록 세팅.
+//                            공식 문서 활용 연습문제
+                            val cameraUpdate = CameraUpdate.scrollTo(latLng)
+                            naverMap.moveCamera(cameraUpdate)
+
 
                         }
 
