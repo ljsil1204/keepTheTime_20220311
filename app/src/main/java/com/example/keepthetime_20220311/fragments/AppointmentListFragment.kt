@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.keepthetime_20220311.EditAppointmentActivity
 import com.example.keepthetime_20220311.R
@@ -14,8 +13,6 @@ import com.example.keepthetime_20220311.adapters.AppointmentListRecyclerAdapter
 import com.example.keepthetime_20220311.databinding.FragmentAppointmentListBinding
 import com.example.keepthetime_20220311.datas.AppointmentData
 import com.example.keepthetime_20220311.datas.BasicResponse
-import com.example.keepthetime_20220311.datas.UserData
-import com.example.keepthetime_20220311.utils.ContextUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,22 +58,26 @@ class AppointmentListFragment : BaseFragment() {
         binding.appointmentRecyclerView.adapter = mAdapter
         binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
-        getAppointmentListFromServer()
+        getMyAppointmentListFromServer()
 
     }
 
-    fun getAppointmentListFromServer() {
+    fun getMyAppointmentListFromServer() {
 
         apiList.getRequestAppointmentList().enqueue( object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
-                val br = response.body()!!
+                if (response.isSuccessful){
 
-                mAppintmentList.clear()
+                    val br = response.body()!!
 
-                mAppintmentList.addAll(br.data.appointments)
+                    mAppintmentList.clear()
 
-                mAdapter.notifyDataSetChanged()
+                    mAppintmentList.addAll(br.data.appointments)
+
+                    mAdapter.notifyDataSetChanged()
+
+                }
 
             }
 
