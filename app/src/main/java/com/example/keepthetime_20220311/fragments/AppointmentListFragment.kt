@@ -12,6 +12,7 @@ import com.example.keepthetime_20220311.EditAppointmentActivity
 import com.example.keepthetime_20220311.R
 import com.example.keepthetime_20220311.adapters.AppointmentListRecyclerAdapter
 import com.example.keepthetime_20220311.databinding.FragmentAppointmentListBinding
+import com.example.keepthetime_20220311.datas.AppointmentData
 import com.example.keepthetime_20220311.datas.BasicResponse
 import com.example.keepthetime_20220311.datas.UserData
 import com.example.keepthetime_20220311.utils.ContextUtil
@@ -23,7 +24,7 @@ class AppointmentListFragment : BaseFragment() {
 
     lateinit var binding : FragmentAppointmentListBinding
 
-    val mAppintmentList = ArrayList<UserData>()
+    val mAppintmentList = ArrayList<AppointmentData>()
 
     lateinit var mAdapter : AppointmentListRecyclerAdapter
 
