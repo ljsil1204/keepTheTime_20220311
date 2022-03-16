@@ -29,6 +29,13 @@ class AppointmentListRecyclerAdapter(
             txtTitle.text = data.title
             txtPlaceName.text = data.place
 
+//            서버가 주는 datetime (String - 2022-03-15 10:57:23 양식)
+
+//            중간에 Calendor / Date 형태로 변환. => 파싱할때 부터 Calendar / Date라고 하면 ?
+
+//            출력하고 싶은 datetime (String - 22년 3월 5일 오후 2시 30분 양식)
+
+
         }
 
     }
