@@ -8,10 +8,11 @@
         android:orientation="vertical"
         tools:context=".ViewMapActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="테스트"/>
+
+        <com.naver.maps.map.MapView
+            android:id="@+id/naverMapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </layout>
