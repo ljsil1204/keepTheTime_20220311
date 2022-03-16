@@ -8,5 +8,10 @@
         android:orientation="vertical"
         tools:context=".ViewMapActivity">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="테스트"/>
+
     </LinearLayout>
 </layout>
