@@ -1,6 +1,7 @@
 package com.example.keepthetime_20220311.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.keepthetime_20220311.R
+import com.example.keepthetime_20220311.ViewMapActivity
 import com.example.keepthetime_20220311.datas.AppointmentData
 import com.example.keepthetime_20220311.datas.UserData
 import java.text.SimpleDateFormat
@@ -35,6 +37,13 @@ class AppointmentListRecyclerAdapter(
 //            출력하고 싶은 datetime (String - 22년 3월 5일 오후 2시 30분 양식) - format활용
             val sdf = SimpleDateFormat("yy월 M월 d일 a h시 m분")
             txtDateTime.text = sdf.format(data.datetime)
+
+            imgViewMap.setOnClickListener {
+
+                val myIntent = Intent(mContext, ViewMapActivity::class.java)
+                mContext.startActivity(myIntent)
+
+            }
 
 
         }
