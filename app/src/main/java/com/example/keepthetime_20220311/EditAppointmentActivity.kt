@@ -47,7 +47,7 @@ class EditAppointmentActivity : BaseActivity() {
 //            입력값들이 제대로 되어있는지? 확인 => 잘못되었다면 막아주자 (input validation)
             val inputTitle = binding.edtTitle.text.toString()
 
-//            입력하지 않았다면 거부. (예시)
+//            제목 입력하지 않았다면 거부. (예시)
             if (inputTitle.isEmpty()){
 
                 Toast.makeText(mContext, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
@@ -111,6 +111,11 @@ class EditAppointmentActivity : BaseActivity() {
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
                 ) {
+
+                    if (response.isSuccessful){
+                        Toast.makeText(mContext, "약속을 등록했습니다.", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
 
                 }
 
