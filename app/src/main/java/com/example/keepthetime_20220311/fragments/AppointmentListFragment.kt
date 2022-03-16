@@ -23,7 +23,7 @@ class AppointmentListFragment : BaseFragment() {
 
     val mAppintmentList = ArrayList<AppointmentData>()
 
-    lateinit var mAdapter : AppointmentListRecyclerAdapter
+    lateinit var mAppointmentAdapter : AppointmentListRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,11 +54,11 @@ class AppointmentListFragment : BaseFragment() {
 
     override fun setValues() {
 
-        mAdapter = AppointmentListRecyclerAdapter(mContext, mAppintmentList)
-        binding.appointmentRecyclerView.adapter = mAdapter
-        binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
-
         getMyAppointmentListFromServer()
+
+        mAppointmentAdapter = AppointmentListRecyclerAdapter(mContext, mAppintmentList)
+        binding.appointmentRecyclerView.adapter = mAppointmentAdapter
+        binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
     }
 
@@ -71,11 +71,11 @@ class AppointmentListFragment : BaseFragment() {
 
                     val br = response.body()!!
 
-                    mAppintmentList.clear()
+//                    mAppintmentList.clear()
 
                     mAppintmentList.addAll(br.data.appointments)
 
-                    mAdapter.notifyDataSetChanged()
+                    mAppointmentAdapter.notifyDataSetChanged()
 
                 }
 
