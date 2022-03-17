@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.example.keepthetime_20220311.adapters.StartPlaceSpinnerAdapter
 import com.example.keepthetime_20220311.databinding.ActivityEditAppointmentBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
 import com.example.keepthetime_20220311.datas.PlaceData
@@ -42,7 +43,9 @@ class EditAppointmentActivity : BaseActivity() {
 
     var mSelectedLatLng : LatLng? = null // 약속 장소 위/경도도 처음에는 설정하지 않은 상태.
 
+//    내 출발 장소 목록
     val mStartPlaceList = ArrayList<PlaceData>()
+    lateinit var mStartPlaceAdapter : StartPlaceSpinnerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -394,6 +397,11 @@ class EditAppointmentActivity : BaseActivity() {
 //        내 출발 장소 목록 불러오기
         getMyStartPlaceListFromServer()
 
+//        스피너 어댑터 연결 -> 리스트뷰와 동일함.
+        mStartPlaceAdapter = StartPlaceSpinnerAdapter(mContext, R.layout.start_place_spinner_list_item, mStartPlaceList)
+        binding.startPlaceSpinner.adapter = mStartPlaceAdapter
+
+
     }
 
     fun getMyStartPlaceListFromServer() {
@@ -408,6 +416,8 @@ class EditAppointmentActivity : BaseActivity() {
                     mStartPlaceList.clear()
 
                     mStartPlaceList.addAll(br.data.places)
+
+                    mStartPlaceAdapter.notifyDataSetChanged()
 
                 }
 
