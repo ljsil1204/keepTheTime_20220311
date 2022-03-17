@@ -59,17 +59,17 @@ class EditAppointmentActivity : BaseActivity() {
     override fun setupEvents() {
 
 //        도전과제 : 스피너의 이벤트 처리
-        binding.startPlaceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-
-//                몇번째 아이템이 선택되었는지. p2 or position 가 알려줌.
-
-//                선택한 출발지 ~ 지도에서 클릭한 도착지까지의 이동 경로 / 교통 정보 표현.
-
-            }
-
-        }
+//        binding.startPlaceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+//
+////                몇번째 아이템이 선택되었는지. p2 or position 가 알려줌.
+//
+////                선택한 출발지 ~ 지도에서 클릭한 도착지까지의 이동 경로 / 교통 정보 표현.
+//
+//            }
+//
+//        }
 
 //        스크롤 보조용 텍스트뷰에 손이 닿으면 => 스크롤뷰의 이벤트 일시정지. (지도만 움직이게)
         binding.txtScrollHelp.setOnTouchListener { view, motionEvent ->
