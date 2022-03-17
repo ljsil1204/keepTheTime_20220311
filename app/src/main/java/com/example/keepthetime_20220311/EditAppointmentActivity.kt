@@ -5,6 +5,8 @@ import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
@@ -55,6 +57,19 @@ class EditAppointmentActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        도전과제 : 스피너의 이벤트 처리
+        binding.startPlaceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+
+//                몇번째 아이템이 선택되었는지. p2 or position 가 알려줌.
+
+//                선택한 출발지 ~ 지도에서 클릭한 도착지까지의 이동 경로 / 교통 정보 표현.
+
+            }
+
+        }
 
 //        스크롤 보조용 텍스트뷰에 손이 닿으면 => 스크롤뷰의 이벤트 일시정지. (지도만 움직이게)
         binding.txtScrollHelp.setOnTouchListener { view, motionEvent ->
@@ -225,7 +240,6 @@ class EditAppointmentActivity : BaseActivity() {
     override fun setValues() {
 
 //        네이버 지도 객체 얻어오기 => 얻어와지면 할 일 (Interface) 코딩
-
         binding.naverMapView.getMapAsync{
 
 //            지도 로딩이 끝나고 난 후에 얻어낸 온전한 지도 객체
@@ -417,7 +431,6 @@ class EditAppointmentActivity : BaseActivity() {
 //        스피너 어댑터 연결 -> 리스트뷰와 동일함.
         mStartPlaceAdapter = StartPlaceSpinnerAdapter(mContext, R.layout.start_place_spinner_list_item, mStartPlaceList)
         binding.startPlaceSpinner.adapter = mStartPlaceAdapter
-
 
     }
 
