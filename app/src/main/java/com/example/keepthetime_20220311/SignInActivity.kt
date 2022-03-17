@@ -41,6 +41,7 @@ class SignInActivity : BaseActivity() {
                 UserApiClient.instance.loginWithKakaoTalk(mContext) {token, error ->
 
                     Log.d("카카오로그인", "카톡 앱으로 로그인")
+                    getKakaoUserInfo()
 
                 }
             }
@@ -51,6 +52,8 @@ class SignInActivity : BaseActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(mContext){token, error ->
 
                     Log.d("카카오로그인", "카톡 앱 없이 로그인")
+                    Log.d("카카오로그인", "받아온 토큰 : ${token.toString()}")
+                    getKakaoUserInfo()
 
                 }
 
@@ -122,5 +125,22 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+
     }
+    
+    fun getKakaoUserInfo() {
+        
+        UserApiClient.instance.me { user, error -> 
+            
+            user?.let {
+
+                Toast.makeText(mContext, "닉네임 : ${it.kakaoAccount?.profile?.nickname}", Toast.LENGTH_SHORT).show()
+
+            }
+            
+        }
+        
+    }
+    
 }
