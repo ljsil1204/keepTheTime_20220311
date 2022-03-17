@@ -90,4 +90,12 @@ interface APIList {
     ) : Call<BasicResponse>
 
 
+    @FormUrlEncoded
+    @POST("/user/social")
+    fun postRequestSocialLogin (
+        @Field("provider") provider : String,
+        @Field("uid") uid : String,
+        @Field("nick_name") nickname : String,
+    ) : Call<BasicResponse>
+
 }
