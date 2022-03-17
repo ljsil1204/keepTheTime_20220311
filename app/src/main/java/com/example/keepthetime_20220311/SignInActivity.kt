@@ -15,6 +15,8 @@ import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.OAuthLoginCallback
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,6 +38,32 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+//        네이버 로그인
+        binding.btnNaverLogin.setOnClickListener {
+
+            NaverIdLoginSDK.initialize(mContext, "yY2MJq0dntfodwLMJzSm", "Cp8olD9637", "약속지킴앱")
+
+            val oauthLoginCallback = object : OAuthLoginCallback{
+                override fun onError(errorCode: Int, message: String) {
+
+                }
+
+                override fun onFailure(httpStatus: Int, message: String) {
+
+                }
+
+                override fun onSuccess() {
+
+                    Log.d("네이버 로그인", NaverIdLoginSDK.getAccessToken().toString())
+
+                }
+
+            }
+
+            NaverIdLoginSDK.authenticate(mContext, oauthLoginCallback)
+
+        }
 
         binding.btnFacebookLogin.setOnClickListener {
 
@@ -110,7 +138,6 @@ class SignInActivity : BaseActivity() {
             LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
 
         }
-
 
         binding.btnKakaoLogin.setOnClickListener {
 
@@ -201,7 +228,6 @@ class SignInActivity : BaseActivity() {
             })
 
         }
-
 
     }
 
