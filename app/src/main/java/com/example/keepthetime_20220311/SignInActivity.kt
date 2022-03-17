@@ -11,6 +11,7 @@ import com.example.keepthetime_20220311.api.ServerAPI
 import com.example.keepthetime_20220311.databinding.ActivitySignInBinding
 import com.example.keepthetime_20220311.datas.BasicResponse
 import com.example.keepthetime_20220311.utils.ContextUtil
+import com.facebook.CallbackManager
 import com.kakao.sdk.user.UserApiClient
 import org.json.JSONObject
 import retrofit2.Call
@@ -21,6 +22,9 @@ class SignInActivity : BaseActivity() {
 
     lateinit var binding : ActivitySignInBinding
 
+//    페북 로그인 화면에 다녀오면, 할일을 관리해주는 변수
+    lateinit var mCallbackManager : CallbackManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
@@ -29,6 +33,13 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnFacebookLogin.setOnClickListener {
+
+//            페북 로그인 기능 실행
+
+        }
+
 
         binding.btnKakaoLogin.setOnClickListener {
 
@@ -66,7 +77,6 @@ class SignInActivity : BaseActivity() {
             val myIntent = Intent(mContext, SignUpActivity::class.java)
             startActivity(myIntent)
         }
-
 
         binding.btnLogin.setOnClickListener {
 
@@ -126,9 +136,16 @@ class SignInActivity : BaseActivity() {
 
     override fun setValues() {
 
+//        페북로그인 - 콜백 관리 기능 초기화
+        mCallbackManager = CallbackManager.Factory.create()
 
     }
-    
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        mCallbackManager.onActivityResult(requestCode,resultCode,data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     fun getKakaoUserInfo() {
         
         UserApiClient.instance.me { user, error -> 
