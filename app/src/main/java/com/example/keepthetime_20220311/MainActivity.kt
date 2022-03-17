@@ -37,8 +37,14 @@ class MainActivity : BaseActivity() {
 
             when(it.itemId) {
 
-                R.id.myAppointment -> binding.mainViewPager2.currentItem = 0
-                R.id.myProfile -> binding.mainViewPager2.currentItem = 1
+                R.id.myAppointment -> {
+                    binding.mainViewPager2.currentItem = 0
+                    btnAdd.visibility = View.VISIBLE
+                }
+                R.id.myProfile -> {
+                    binding.mainViewPager2.currentItem = 1
+                    btnAdd.visibility = View.GONE
+                }
 
             }
 
@@ -68,7 +74,7 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
-        btnAdd.visibility = View.VISIBLE
+//        btnAdd.visibility = View.VISIBLE
 
         binding.mainViewPager2.adapter = MainViewPager2Adapter( this ) // 변수 : Activity => 객체 : Context로 대입불가.
 
