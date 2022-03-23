@@ -21,6 +21,7 @@ import com.example.keepthetime_20220311.datas.BasicResponse
 import com.example.keepthetime_20220311.utils.ContextUtil
 import com.example.keepthetime_20220311.utils.URIPathHelper
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -147,7 +148,7 @@ class MyProfileFragment : BaseFragment() {
                 val file = File( URIPathHelper().getPath(mContext, selectedImageUri) )
 
 //                완성된 파일을, Retrofit에 첨부가능한 RequestBody 형태로 가공.
-                val fileReqBody = RequestBody.create(MediaType.get("image/*"), file)
+                val fileReqBody = RequestBody.create("image/*".toMediaType(), file)
 
 //                실제로 첨부하자. 일반 형태의 통신 x , Multipart 형태로 전송. MultipartBody 형태로 2차 가공.
 //                cf) 파일이 같이 첨부되는 API 통신은, MUltipart 형태로 모든 데이터를 첨부해야함.
